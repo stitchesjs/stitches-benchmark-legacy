@@ -1,7 +1,7 @@
 import React from 'react';
 import scStyled from 'styled-components';
 import { renderToString } from 'react-dom/server';
-import { createStyled } from '@stitches/styled';
+import { createStyled } from '@stitches/react';
 
 const { styled: stitchesStyled } = createStyled({});
 
