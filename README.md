@@ -1,3 +1,3 @@
 # Stitches Benchmarks
 
-A benchmark project for [Stitcjes](https://stitches.dev).
+A benchmark project for [Stitches](https://stitches.dev).
