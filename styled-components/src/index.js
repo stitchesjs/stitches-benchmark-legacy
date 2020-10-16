@@ -31,8 +31,8 @@ const ScTest1 = () => {
 const ScTest2 = () => {
   return (
     <div>
-      <ScDynamicComponent disabled>Hello Test</ScDynamicComponent>;
-      <ScDynamicComponent disabled={false}>Hello Test</ScDynamicComponent>;
+      <ScDynamicComponent disabled>Hello Test</ScDynamicComponent>
+      <ScDynamicComponent disabled={false}>Hello Test</ScDynamicComponent>
     </div>
   );
 };
@@ -50,16 +50,15 @@ const StitchesOverrideBaseComponent = stitchesStyled(StitchesBaseComponent, {
   paddingTop: '5rem',
 });
 
-const StitchesDynamicComponent = scStyled.div(
-  {},
-  {
+const StitchesDynamicComponent = scStyled.div({
+  variants: {
     variant: {
       muted: {
         opacity: 0.5,
       },
     },
-  }
-);
+  },
+});
 
 const StitchesTest1 = () => {
   return <StitchesOverrideBaseComponent>Hello Test</StitchesOverrideBaseComponent>;
@@ -68,8 +67,8 @@ const StitchesTest1 = () => {
 const StitchesTest2 = () => {
   return (
     <div>
-      <StitchesDynamicComponent variant="muted">Hello Test</StitchesDynamicComponent>;
-      <StitchesDynamicComponent>Hello Test</StitchesDynamicComponent>;
+      <StitchesDynamicComponent variant="muted">Hello Test</StitchesDynamicComponent>
+      <StitchesDynamicComponent>Hello Test</StitchesDynamicComponent>
     </div>
   );
 };
