@@ -5,7 +5,7 @@ import { createStyled } from '@stitches/react';
 
 const { styled: stitchesStyled } = createStyled({});
 
-const LOOP = 1000;
+const LOOP = 2000;
 
 /**
  * SETUP: STYLED COMPONENTS
