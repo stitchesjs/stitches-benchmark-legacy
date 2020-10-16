@@ -1,11 +1,11 @@
 import React from 'react';
 import scStyled from 'styled-components';
 import { renderToString } from 'react-dom/server';
-import { createStyled } from '@stitches/styled';
+import { createStyled } from '@stitches/react';
 
 const { styled: stitchesStyled } = createStyled({});
 
-const LOOP = 1000;
+const LOOP = 2000;
 
 /**
  * SETUP: STYLED COMPONENTS
