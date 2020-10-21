@@ -38,40 +38,44 @@ function BenchmarkUI(props) {
 		}
 		currentTarget.disabled = false
 	}
+	const max = React.useMemo(() => Object.values(benchmarks).reduce(
+		(max, benchmark) => Math.max(max, benchmark.hz),
+		0
+	), [benchmarks])
+
 	return (
-		<section className="benchmarks">
-			<table>
-				<caption>
-					<h3>{caption}</h3>
-					<p>{description}</p>
-				</caption>
-				<thead>
-					<tr>
-						<th>Benchmark</th>
-						<th>Status</th>
-						<th>Performance</th>
+		<table className="benchmarks">
+			<caption>
+				<h3>{caption}</h3>
+				<p>{description}</p>
+			</caption>
+			<thead>
+				<tr>
+					<th>Benchmark</th>
+					<th>Status</th>
+					<th>Performance</th>
+					<th>Grade</th>
+				</tr>
+			</thead>
+			<tbody>
+				{Object.entries(benchmarks).map(([name, benchmark]) => (
+					<tr key={name} className={benchmark.state}>
+						<th>{name}</th>
+						<td>{benchmark.state}</td>
+						<td>{benchmark.hz} ops/ms</td>
+						<td>{(max === 0 ? 0 : benchmark.hz / max * 100).toFixed(1)}%</td>
 					</tr>
-				</thead>
-				<tbody>
-					{Object.entries(benchmarks).map(([name, benchmark]) => (
-						<tr key={name} className={benchmark.state}>
-							<th>{name}</th>
-							<td>{benchmark.state}</td>
-							<td>{benchmark.hz} ops/ms</td>
-						</tr>
-					))}
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colSpan={2}>{navigator.userAgent}</td>
-						<td className="button">
-							<button onClick={onClick}>Run Benchmarks</button>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-			<testing-space />
-		</section>
+				))}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colSpan={3}>{navigator.userAgent}</td>
+					<td className="button">
+						<button onClick={onClick}>Run Benchmarks</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
 	)
 }
 

@@ -8,6 +8,20 @@ body {
 	margin: 0;
 }
 
+iframe {
+	all: unset;
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: -1;
+}
+
 h1 {
 	font-size: 150%;
 	font-weight: 700;
@@ -16,12 +30,8 @@ h1 {
 }
 
 .benchmarks {
-	display: flex;
-}
-
-.benchmarks > table {
 	border-collapse: collapse;
-	width: 75%;
+	width: 100%;
 }
 
 .benchmarks caption {
@@ -43,6 +53,10 @@ h1 {
 	margin: 0.25rem 0 0;
 }
 
+.benchmarks thead th {
+	font-size: 90%;
+}
+
 .benchmarks td,
 .benchmarks th {
 	margin: 0;
@@ -60,7 +74,7 @@ h1 {
 .benchmarks thead tr > :nth-child(1),
 .benchmarks tbody tr > :nth-child(1) {
 	text-align: left;
-	width: 80%;
+	width: 70%;
 }
 
 .benchmarks thead tr > :nth-child(2),
@@ -70,7 +84,9 @@ h1 {
 }
 
 .benchmarks thead tr > :nth-child(3),
-.benchmarks tbody tr > :nth-child(3) {
+.benchmarks tbody tr > :nth-child(3),
+.benchmarks thead tr > :nth-child(4),
+.benchmarks tbody tr > :nth-child(4) {
 	text-align: right;
 	width: 10%;
 }
@@ -101,21 +117,6 @@ h1 {
 	justify-content: center;
 	min-height: 3rem;
 	width: 100%;
-}
-
-testing-space {
-	background-color: #007e00;
-	width: 25%;
-}
-
-#test {
-	bottom: 0;
-	height: 100%;
-	padding: 1rem;
-	position: fixed;
-	right: 0;
-	top: 0;
-	width: 25%;
 }
 
 nav ul {

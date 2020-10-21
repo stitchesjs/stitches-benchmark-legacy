@@ -8,6 +8,10 @@ import { createStyled as createStitches002 } from '@stitches/react'
 import { createStyled as createStitches003 } from '@stitches/react-canary'
 import BenchmarkUI from '../utils/BenchmarkUI'
 
+const { render } = ReactDOM
+
+/* global sandRoot:readonly */
+
 /* Setup Emotion v10.0.27
 /* ========================================================================== */
 
@@ -112,41 +116,41 @@ export default function CssInReactPage() {
 				benchmarks={{
 					'Emotion v10.0.27': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<EmotionBaseComponent>{b.iteration}</EmotionBaseComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Styled v5.2.0': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<StyledBaseComponent>{b.iteration}</StyledBaseComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches Original': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<StitchesOriginalBaseComponent>{b.iteration}</StitchesOriginalBaseComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches v0.0.2': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<Stitches002BaseComponent>{b.iteration}</Stitches002BaseComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches v0.0.3': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<Stitches003BaseComponent>{b.iteration}</Stitches003BaseComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
@@ -158,47 +162,47 @@ export default function CssInReactPage() {
 				benchmarks={{
 					'Emotion v10.0.27': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<EmotionDynamicComponent disabled={b.iteration % 2}>{b.iteration}</EmotionDynamicComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Styled v5.2.0': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<StyledDynamicComponent disabled={b.iteration % 2}>{b.iteration}</StyledDynamicComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches Original': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<StitchesOriginalDynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
 									{b.iteration}
 								</StitchesOriginalDynamicComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches v0.0.2': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<Stitches002DynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
 									{b.iteration}
 								</Stitches002DynamicComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches v0.0.3': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<Stitches003DynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
 									{b.iteration}
 								</Stitches003DynamicComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
@@ -211,51 +215,51 @@ export default function CssInReactPage() {
 				benchmarks={{
 					'Emotion v10.0.27': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<EmotionOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
 									{b.iteration}
 								</EmotionOverrideComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Styled v5.2.0': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<StyledOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
 									{b.iteration}
 								</StyledOverrideComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches Original': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<StitchesOriginalOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
 									{b.iteration}
 								</StitchesOriginalOverrideComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches v0.0.2': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<Stitches002OverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
 									{b.iteration}
 								</Stitches002OverrideComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},
 					'Stitches v0.0.3': {
 						test(b) {
-							return ReactDOM.render(
+							return render(
 								<Stitches003OverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
 									{b.iteration}
 								</Stitches003OverrideComponent>,
-								document.getElementById('test')
+								sandRoot
 							)
 						},
 					},

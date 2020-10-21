@@ -1,7 +1,13 @@
+/* global sand:readonly */
+
 import BenchmarkUI from '../utils/BenchmarkUI'
 import * as React from 'react'
 
 export default function CssInJsPage() {
+	const { appendChild, removeChild } = sand.Node.prototype
+	const { createElement, head } = sand.document
+	const create = createElement.bind(sand.document)
+
 	return (
 		<React.Fragment>
 			<BenchmarkUI
@@ -11,53 +17,54 @@ export default function CssInJsPage() {
 					'DOM textContent': {
 						test(b) {
 							if (b.iteration % 2) {
-								b.styleElement.textContent += 'testing-space{background-color:#008000;color:#fffeff}'
+								b.styleElement.textContent += 'html{background-color:#008000;color:#fffeff}'
 							} else {
-								b.styleElement.textContent += 'testing-space{background-color:#007f00;color:#ffffff}'
+								b.styleElement.textContent += 'html{background-color:#007f00;color:#ffffff}'
 							}
 						},
 						beforeAll(b) {
-							b.styleElement = document.head.appendChild(document.createElement('style'))
+							b.styleElement = appendChild.call(head, create('style'))
 						},
 						afterAll(b) {
-							document.head.removeChild(b.styleElement)
+							removeChild.call(head, b.styleElement)
 							delete b.styleElement
 						},
 					},
 					'DOM appendChild': {
 						test(b) {
 							if (b.iteration % 2) {
-								b.styleElement.appendChild(
-									document.createTextNode('testing-space{background-color:#008000;color:#fffeff}')
+								appendChild.call(
+									b.styleElement,
+									document.createTextNode('html{background-color:#008000;color:#fffeff}')
 								)
 							} else {
 								b.styleElement.appendChild(
-									document.createTextNode('testing-space{background-color:#007f00;color:#ffffff}')
+									document.createTextNode('html{background-color:#007f00;color:#ffffff}')
 								)
 							}
 						},
 						beforeAll(b) {
-							b.styleElement = document.head.appendChild(document.createElement('style'))
+							b.styleElement = appendChild.call(head, create('style'))
 						},
 						afterAll(b) {
-							document.head.removeChild(b.styleElement)
+							removeChild.call(head, b.styleElement)
 							delete b.styleElement
 						},
 					},
 					'CSSOM addRule': {
 						test(b) {
 							if (b.iteration % 2) {
-								b.sheet.addRule('testing-space', 'background-color:#008000;color:#fffeff')
+								b.sheet.addRule('html', 'background-color:#008000;color:#fffeff')
 							} else {
-								b.sheet.addRule('testing-space', 'background-color:#007f00;color:#ffffff')
+								b.sheet.addRule('html', 'background-color:#007f00;color:#ffffff')
 							}
 						},
 						beforeAll(b) {
-							b.styleElement = document.head.appendChild(document.createElement('style'))
+							b.styleElement = appendChild.call(head, create('style'))
 							b.sheet = b.styleElement.sheet
 						},
 						afterAll(b) {
-							document.head.removeChild(b.styleElement)
+							removeChild.call(head, b.styleElement)
 							delete b.sheet
 							delete b.styleElement
 						},
@@ -65,17 +72,17 @@ export default function CssInJsPage() {
 					'CSSOM insertRule': {
 						test(b) {
 							if (b.iteration % 2) {
-								b.sheet.insertRule('testing-space{background-color:#008000;color:#fffeff}')
+								b.sheet.insertRule('html{background-color:#008000;color:#fffeff}')
 							} else {
-								b.sheet.insertRule('testing-space{background-color:#007f00;color:#ffffff}')
+								b.sheet.insertRule('html{background-color:#007f00;color:#ffffff}')
 							}
 						},
 						beforeAll(b) {
-							b.styleElement = document.head.appendChild(document.createElement('style'))
+							b.styleElement = appendChild.call(head, create('style'))
 							b.sheet = b.styleElement.sheet
 						},
 						afterAll(b) {
-							document.head.removeChild(b.styleElement)
+							removeChild.call(head, b.styleElement)
 							delete b.sheet
 							delete b.styleElement
 						},
@@ -89,16 +96,17 @@ export default function CssInJsPage() {
 					'DOM textContent': {
 						test(b) {
 							if (b.iteration % 2) {
-								b.styleElement.textContent += 'testing-space{background-color:#008000;color:#fffeff}'
+								b.styleElement.textContent += 'html{background-color:#008000;color:#fffeff}'
 							} else {
-								b.styleElement.textContent += 'testing-space{background-color:#007f00;color:#ffffff}'
+								b.styleElement.textContent += 'html{background-color:#007f00;color:#ffffff}'
 							}
 						},
 						beforeEach(b) {
-							b.styleElement = document.head.appendChild(document.createElement('style'))
+							b.styleElement = appendChild.call(head, create('style'))
 						},
 						afterEach(b) {
-							document.head.removeChild(b.styleElement)
+							removeChild.call(head, b.styleElement)
+							delete b.sheet
 							delete b.styleElement
 						},
 					},
@@ -106,36 +114,37 @@ export default function CssInJsPage() {
 						test(b) {
 							if (b.iteration % 2) {
 								b.styleElement.appendChild(
-									document.createTextNode('testing-space{background-color:#008000;color:#fffeff}')
+									document.createTextNode('html{background-color:#008000;color:#fffeff}')
 								)
 							} else {
 								b.styleElement.appendChild(
-									document.createTextNode('testing-space{background-color:#007f00;color:#ffffff}')
+									document.createTextNode('htmlhtml{background-color:#007f00;color:#ffffff}')
 								)
 							}
 						},
 						beforeEach(b) {
-							b.styleElement = document.head.appendChild(document.createElement('style'))
+							b.styleElement = appendChild.call(head, create('style'))
 						},
 						afterEach(b) {
-							document.head.removeChild(b.styleElement)
+							removeChild.call(head, b.styleElement)
+							delete b.sheet
 							delete b.styleElement
 						},
 					},
 					'CSSOM addRule': {
 						test(b) {
 							if (b.iteration % 2) {
-								b.sheet.addRule('testing-space', 'background-color:#008000;color:#fffeff')
+								b.sheet.addRule('html', 'background-color:#008000;color:#fffeff')
 							} else {
 								b.sheet.addRule('testing-space', 'background-color:#007f00;color:#ffffff')
 							}
 						},
 						beforeEach(b) {
-							b.styleElement = document.head.appendChild(document.createElement('style'))
+							b.styleElement = appendChild.call(head, create('style'))
 							b.sheet = b.styleElement.sheet
 						},
 						afterEach(b) {
-							document.head.removeChild(b.styleElement)
+							removeChild.call(head, b.styleElement)
 							delete b.sheet
 							delete b.styleElement
 						},
@@ -149,11 +158,11 @@ export default function CssInJsPage() {
 							}
 						},
 						beforeEach(b) {
-							b.styleElement = document.head.appendChild(document.createElement('style'))
+							b.styleElement = appendChild.call(head, create('style'))
 							b.sheet = b.styleElement.sheet
 						},
 						afterEach(b) {
-							document.head.removeChild(b.styleElement)
+							removeChild.call(head, b.styleElement)
 							delete b.sheet
 							delete b.styleElement
 						},
