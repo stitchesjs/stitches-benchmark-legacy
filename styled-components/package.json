@@ -4,15 +4,25 @@
   "description": "",
   "keywords": [],
   "main": "src/index.js",
+  "files": [
+    "public",
+    "src"
+  ],
+  "license": "MIT",
   "dependencies": {
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
+    "@loadable/component": "5.14.0",
     "@stitches/react": "0.0.2",
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
-    "react-scripts": "3.0.1",
-    "styled-components": "5.1.1"
+    "@stitches/react-canary": "file:bundledDependencies/react-0.0.3-canary.4.tar.gz",
+    "react": "17.0.0",
+    "react-dom": "17.0.0",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "3.4.4",
+    "styled-components": "5.2.0"
   },
   "devDependencies": {
-    "typescript": "3.8.3"
+    "typescript": "4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

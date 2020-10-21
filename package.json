@@ -1,9 +1,7 @@
 {
   "name": "stitches-benchmark",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "main": "",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {},
   "scripts": {}
