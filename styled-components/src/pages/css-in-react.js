@@ -79,6 +79,8 @@ const Stitches002DynamicComponent = stitches002.div({
 	},
 })
 
+const Stitches002OverrideComponent = stitches002.div({})
+
 /* Setup Stitches v0.0.3
 /* ========================================================================== */
 
