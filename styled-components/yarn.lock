@@ -1482,6 +1482,14 @@
   resolved "https://registry.yarnpkg.com/@stitches/core/-/core-0.0.3-canary.4.tgz#47f5bcf250f5a010218e76510af4ba52e066de6c"
   integrity sha512-VlDwtJfhWvxItU8ai5i0UQcNx7MRUIMpy2i6ufUVxcINXkrFZDTBxfahdgKQIT5oS3kT0LbUySctRDEMbt79YA==
 
+"@stitches/css@^7.2.0":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@stitches/css/-/css-7.2.1.tgz#7452486bcd058bbed0c762142e01e47c5985bcf8"
+  integrity sha512-5Vc5lMXBO7WQxLs522/9XDCv07ygCnfBuMExHZN9NolywA/bgQZVcvyPEZ7mRuVLaC7146ZzJWn6IKfCRx8Ucg==
+  dependencies:
+    "@types/node" "^13.11.1"
+    tslib "^1.11.1"
+
 "@stitches/react-canary@file:bundledDependencies/react-0.0.3-canary.4.tar.gz":
   version "0.0.3-canary.4"
   resolved "file:bundledDependencies/react-0.0.3-canary.4.tar.gz#a482ef65ee26607840b690910b177eb8a5c68d97"
@@ -1496,6 +1504,15 @@
     "@stitches/core" "^0.0.2"
     "@types/node" "^13.11.1"
     "@types/react-test-renderer" "^16.9.3"
+    tslib "^1.11.1"
+
+"@stitches/styled@7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@stitches/styled/-/styled-7.2.0.tgz#404f036e71518451b5674b418965ca1e0abfa439"
+  integrity sha512-+2SNTagEGMhse9FPigEcSMlUcHJGjILIZGXZMHWCkJYAwX3OrQfQoMsxm35dGn+Kgyqvq18AEw8rQRfHytZwRA==
+  dependencies:
+    "@stitches/css" "^7.2.0"
+    "@types/node" "^13.11.1"
     tslib "^1.11.1"
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":

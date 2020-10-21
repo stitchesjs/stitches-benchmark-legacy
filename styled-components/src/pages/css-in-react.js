@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom'
 import * as ReactDOMServer from 'react-dom/server'
 import emotionStyled from '@emotion/styled'
 import componentsStyled from 'styled-components'
+import { createStyled as createStitchesOriginal } from '@stitches/styled'
 import { createStyled as createStitches002 } from '@stitches/react'
 import { createStyled as createStitches003 } from '@stitches/react-canary'
 import BenchmarkUI from '../utils/BenchmarkUI'
@@ -19,6 +20,8 @@ const EmotionDynamicComponent = emotionStyled.div((props) => ({
 	opacity: props.disabled ? 0.5 : 1,
 }))
 
+const EmotionOverrideComponent = emotionStyled.div((props) => props.css)
+
 /* Setup Styled v5.2.0
 /* ========================================================================== */
 
@@ -30,6 +33,31 @@ const StyledBaseComponent = componentsStyled.div({
 const StyledDynamicComponent = componentsStyled.div((props) => ({
 	opacity: props.disabled ? 0.5 : 1,
 }))
+
+const StyledOverrideComponent = componentsStyled.div((props) => props.css)
+
+/* Setup Stitches Original (when it was called `styled`)
+/* ========================================================================== */
+
+const { styled: stitchesOriginal } = createStitchesOriginal({})
+
+const StitchesOriginalBaseComponent = stitchesOriginal.div({
+	color: 'blue',
+	padding: '1rem',
+})
+
+const StitchesOriginalDynamicComponent = stitchesOriginal.div(
+	{},
+	{
+		variant: {
+			muted: {
+				opacity: 0.5,
+			},
+		},
+	}
+)
+
+const StitchesOriginalOverrideComponent = stitchesOriginal.div({})
 
 /* Setup Stitches v0.0.2
 /* ========================================================================== */
@@ -71,6 +99,8 @@ const Stitches003DynamicComponent = stitches003.div({
 	},
 })
 
+const Stitches003OverrideComponent = stitches003.div({})
+
 export default function CssInReactPage() {
 	return (
 		<React.Fragment>
@@ -90,6 +120,14 @@ export default function CssInReactPage() {
 						test(b) {
 							return ReactDOM.render(
 								<StyledBaseComponent>{b.iteration}</StyledBaseComponent>,
+								document.getElementById('test')
+							)
+						},
+					},
+					'Stitches Original': {
+						test(b) {
+							return ReactDOM.render(
+								<StitchesOriginalBaseComponent>{b.iteration}</StitchesOriginalBaseComponent>,
 								document.getElementById('test')
 							)
 						},
@@ -132,6 +170,16 @@ export default function CssInReactPage() {
 							)
 						},
 					},
+					'Stitches Original': {
+						test(b) {
+							return ReactDOM.render(
+								<StitchesOriginalDynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
+									{b.iteration}
+								</StitchesOriginalDynamicComponent>,
+								document.getElementById('test')
+							)
+						},
+					},
 					'Stitches v0.0.2': {
 						test(b) {
 							return ReactDOM.render(
@@ -154,6 +202,64 @@ export default function CssInReactPage() {
 					},
 				}}
 			/>
+
+			<BenchmarkUI
+				caption="Rendering Overriden React Components"
+				description="This test represents rendering an override component with via the `css` prop."
+				benchmarks={{
+					'Emotion v10.0.27': {
+						test(b) {
+							return ReactDOM.render(
+								<EmotionOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
+									{b.iteration}
+								</EmotionOverrideComponent>,
+								document.getElementById('test')
+							)
+						},
+					},
+					'Styled v5.2.0': {
+						test(b) {
+							return ReactDOM.render(
+								<StyledOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
+									{b.iteration}
+								</StyledOverrideComponent>,
+								document.getElementById('test')
+							)
+						},
+					},
+					'Stitches Original': {
+						test(b) {
+							return ReactDOM.render(
+								<StitchesOriginalOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
+									{b.iteration}
+								</StitchesOriginalOverrideComponent>,
+								document.getElementById('test')
+							)
+						},
+					},
+					'Stitches v0.0.2': {
+						test(b) {
+							return ReactDOM.render(
+								<Stitches002OverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
+									{b.iteration}
+								</Stitches002OverrideComponent>,
+								document.getElementById('test')
+							)
+						},
+					},
+					'Stitches v0.0.3': {
+						test(b) {
+							return ReactDOM.render(
+								<Stitches003OverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
+									{b.iteration}
+								</Stitches003OverrideComponent>,
+								document.getElementById('test')
+							)
+						},
+					},
+				}}
+			/>
+
 			<BenchmarkUI
 				caption="Rendering Static React Components to Strings"
 				description="This test represents rendering a static component with a unique value to a string using ReactDOM Server."
@@ -166,6 +272,13 @@ export default function CssInReactPage() {
 					'Styled v5.2.0': {
 						test(b) {
 							return ReactDOMServer.renderToString(<StyledBaseComponent>{b.iteration}</StyledBaseComponent>)
+						},
+					},
+					'Stitches Original': {
+						test(b) {
+							return ReactDOMServer.renderToString(
+								<StitchesOriginalBaseComponent>{b.iteration}</StitchesOriginalBaseComponent>
+							)
 						},
 					},
 					'Stitches v0.0.2': {
@@ -195,6 +308,15 @@ export default function CssInReactPage() {
 						test(b) {
 							return ReactDOMServer.renderToString(
 								<StyledDynamicComponent disabled={b.iteration % 2}>{b.iteration}</StyledDynamicComponent>
+							)
+						},
+					},
+					'Stitches Original': {
+						test(b) {
+							return ReactDOMServer.renderToString(
+								<StitchesOriginalDynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
+									{b.iteration}
+								</StitchesOriginalDynamicComponent>
 							)
 						},
 					},
