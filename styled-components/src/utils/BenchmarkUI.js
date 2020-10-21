@@ -69,8 +69,8 @@ function BenchmarkUI(props) {
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colSpan={3}>{navigator.userAgent}</td>
-					<td className="button">
+					<td>{navigator.userAgent}</td>
+					<td colSpan={3} className="button">
 						<button onClick={onClick}>Run Benchmarks</button>
 					</td>
 				</tr>
