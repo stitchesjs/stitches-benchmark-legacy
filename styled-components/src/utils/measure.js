@@ -36,7 +36,7 @@ const measure = async (b) => {
 		// Run and measure each test...
 		started = now()
 		results = test(b)
-		if (results?.then) await results
+		if (results?.then) results = await results
 		elapsed = now() - started
 		measurements.push(elapsed)
 		hz = getHz(measurements)

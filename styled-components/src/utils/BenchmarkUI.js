@@ -17,7 +17,6 @@ function BenchmarkUI(props) {
 			benchmark.returnValue = null
 			benchmark.state = 'pending'
 			benchmark.between = async (b) => {
-				benchmark = { ...b }
 				await setBenchmarks({ ...benchmarks })
 			}
 		}
