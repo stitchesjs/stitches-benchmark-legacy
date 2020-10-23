@@ -1,5 +1,9 @@
 import * as React from 'react'
-import measure from './measure'
+
+/* global globalThis:readonly */
+
+const getBenchmarkStatus = (benchmark) => (benchmark.running ? 'running' : benchmark.count ? 'complete' : 'pending')
+const getBenchmarkMax = (suite) => suite.reduce((max, benchmark) => Math.max(max, benchmark.hz), 0)
 
 /* Benchmark UI
 /* ========================================================================== */
@@ -10,38 +14,45 @@ import measure from './measure'
  */
 function BenchmarkUI(props) {
 	const { caption, description } = props
-	const [benchmarks, setBenchmarks] = React.useState(() => {
-		const benchmarks = { ...props.benchmarks }
-		for (let benchmark of Object.values(benchmarks)) {
-			benchmark.hz = 0
-			benchmark.returnValue = null
-			benchmark.state = 'pending'
-			benchmark.between = async (b) => {
-				await setBenchmarks({ ...benchmarks })
-			}
+	const [, setUpdate] = React.useState(() => performance.now())
+	const suite = React.useMemo(() => {
+		const Benchmark = globalThis.Benchmark
+		const suite = new Benchmark.Suite('Benchmark')
+		for (const [name, { beforeEach, afterEach, beforeAll, afterAll, test, deferred = false }] of Object.entries(props.benchmarks)) {
+			const benchmarkConfig = { name, onCycle() { setMax(getBenchmarkMax(suite)) }, deferred }
+			const benchmarkFnBody = []
+			if (beforeEach) benchmarkFnBody.push('beforeEach.call(this, this)')
+			if (test) benchmarkFnBody.push('test.call(this, this)')
+			if (afterEach) benchmarkFnBody.push('afterEach.call(this, this)')
+			// eslint-disable-next-line
+			benchmarkConfig.fn = Function(
+				'beforeEach',
+				'test',
+				'afterEach',
+				'return function(){return ' + benchmarkFnBody + '}'
+			)(beforeEach, test, afterEach)
+			// eslint-disable-next-line
+			if (beforeAll) benchmarkConfig.teardown = Function('fn', 'return function(){return fn()}')(beforeAll)
+			// eslint-disable-next-line
+			if (afterAll) benchmarkConfig.teardown = Function('fn', 'return function(){return fn()}')(afterAll)
+			suite.push(new Benchmark(benchmarkConfig))
 		}
-		return benchmarks
-	})
+		return suite
+	}, [props.benchmarks])
+	globalThis.suite = suite
+	const [max, setMax] = React.useState(() => getBenchmarkMax(suite))
 	/** @type {import('./BenchmarkUI').OnClick} */
 	const onClick = async (event) => {
 		const { currentTarget } = event
 		if (currentTarget.disabled) return
 		currentTarget.disabled = true
-		/** @type {import('./measure').Benchmark} */
-		let b
-		for (b of Object.values(benchmarks)) {
-			b.state = 'running'
-			setBenchmarks({ ...benchmarks })
-			await measure(b)
-			b.state = 'complete'
-			setBenchmarks({ ...benchmarks })
+		const onComplete = () => {
+			currentTarget.disabled = false
+			suite.off('complete', onComplete)
+			setUpdate(performance.now())
 		}
-		currentTarget.disabled = false
+		suite.on('complete', onComplete).run({ async: true })
 	}
-	const max = React.useMemo(() => Object.values(benchmarks).reduce(
-		(max, benchmark) => Math.max(max, benchmark.hz),
-		0
-	), [benchmarks])
 
 	return (
 		<table className="benchmarks">
@@ -58,12 +69,12 @@ function BenchmarkUI(props) {
 				</tr>
 			</thead>
 			<tbody>
-				{Object.entries(benchmarks).map(([name, benchmark]) => (
-					<tr key={name} className={benchmark.state}>
-						<th>{name}</th>
-						<td>{benchmark.state}</td>
-						<td>{benchmark.hz} ops/ms</td>
-						<td>{(max === 0 ? 0 : benchmark.hz / max * 100).toFixed(1)}%</td>
+				{suite.map((benchmark) => (
+					<tr key={benchmark.id} className={getBenchmarkStatus(benchmark)}>
+						<th>{benchmark.name}</th>
+						<td>{getBenchmarkStatus(benchmark)}</td>
+						<td>{Math.trunc(benchmark.hz)} hz</td>
+						<td>{(max === 0 ? 0 : (benchmark.hz / max) * 100).toFixed(1)}%</td>
 					</tr>
 				))}
 			</tbody>

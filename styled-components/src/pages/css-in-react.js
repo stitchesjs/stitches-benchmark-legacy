@@ -115,42 +115,52 @@ export default function CssInReactPage() {
 				description="This test represents rendering a static component with a unique value using ReactDOM."
 				benchmarks={{
 					'Emotion v10.0.27': {
+						deferred: true,
 						test(b) {
 							return render(
-								<EmotionBaseComponent>{b.iteration}</EmotionBaseComponent>,
-								sandRoot
+								<EmotionBaseComponent>{b.count}</EmotionBaseComponent>,
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Styled v5.2.0': {
+						deferred: true,
 						test(b) {
 							return render(
-								<StyledBaseComponent>{b.iteration}</StyledBaseComponent>,
-								sandRoot
+								<StyledBaseComponent>{b.count}</StyledBaseComponent>,
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches Original': {
+						deferred: true,
 						test(b) {
 							return render(
-								<StitchesOriginalBaseComponent>{b.iteration}</StitchesOriginalBaseComponent>,
-								sandRoot
+								<StitchesOriginalBaseComponent>{b.count}</StitchesOriginalBaseComponent>,
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches v0.0.2': {
+						deferred: true,
 						test(b) {
 							return render(
-								<Stitches002BaseComponent>{b.iteration}</Stitches002BaseComponent>,
-								sandRoot
+								<Stitches002BaseComponent>{b.count}</Stitches002BaseComponent>,
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches v0.0.3': {
+						deferred: true,
 						test(b) {
 							return render(
-								<Stitches003BaseComponent>{b.iteration}</Stitches003BaseComponent>,
-								sandRoot
+								<Stitches003BaseComponent>{b.count}</Stitches003BaseComponent>,
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
@@ -161,48 +171,58 @@ export default function CssInReactPage() {
 				description="This test represents rendering a dynamic component with a unique value using ReactDOM."
 				benchmarks={{
 					'Emotion v10.0.27': {
+						deferred: true,
 						test(b) {
 							return render(
-								<EmotionDynamicComponent disabled={b.iteration % 2}>{b.iteration}</EmotionDynamicComponent>,
-								sandRoot
+								<EmotionDynamicComponent disabled={b.count % 2}>{b.count}</EmotionDynamicComponent>,
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Styled v5.2.0': {
+						deferred: true,
 						test(b) {
 							return render(
-								<StyledDynamicComponent disabled={b.iteration % 2}>{b.iteration}</StyledDynamicComponent>,
-								sandRoot
+								<StyledDynamicComponent disabled={b.count % 2}>{b.count}</StyledDynamicComponent>,
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches Original': {
+						deferred: true,
 						test(b) {
 							return render(
-								<StitchesOriginalDynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
-									{b.iteration}
+								<StitchesOriginalDynamicComponent {...(b.count % 2 ? { variant: 'muted' } : {})}>
+									{b.count}
 								</StitchesOriginalDynamicComponent>,
-								sandRoot
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches v0.0.2': {
+						deferred: true,
 						test(b) {
 							return render(
-								<Stitches002DynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
-									{b.iteration}
+								<Stitches002DynamicComponent {...(b.count % 2 ? { variant: 'muted' } : {})}>
+									{b.count}
 								</Stitches002DynamicComponent>,
-								sandRoot
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches v0.0.3': {
+						deferred: true,
 						test(b) {
 							return render(
-								<Stitches003DynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
-									{b.iteration}
+								<Stitches003DynamicComponent {...(b.count % 2 ? { variant: 'muted' } : {})}>
+									{b.count}
 								</Stitches003DynamicComponent>,
-								sandRoot
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
@@ -214,52 +234,62 @@ export default function CssInReactPage() {
 				description="This test represents rendering an override component with via the `css` prop."
 				benchmarks={{
 					'Emotion v10.0.27': {
+						deferred: true,
 						test(b) {
 							return render(
-								<EmotionOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
-									{b.iteration}
+								<EmotionOverrideComponent css={{ color: b.count % 2 ? 'red' : 'blue' }}>
+									{b.count}
 								</EmotionOverrideComponent>,
-								sandRoot
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Styled v5.2.0': {
+						deferred: true,
 						test(b) {
 							return render(
-								<StyledOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
-									{b.iteration}
+								<StyledOverrideComponent css={{ color: b.count % 2 ? 'red' : 'blue' }}>
+									{b.count}
 								</StyledOverrideComponent>,
-								sandRoot
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches Original': {
+						deferred: true,
 						test(b) {
 							return render(
-								<StitchesOriginalOverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
-									{b.iteration}
+								<StitchesOriginalOverrideComponent css={{ color: b.count % 2 ? 'red' : 'blue' }}>
+									{b.count}
 								</StitchesOriginalOverrideComponent>,
-								sandRoot
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches v0.0.2': {
+						deferred: true,
 						test(b) {
 							return render(
-								<Stitches002OverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
-									{b.iteration}
+								<Stitches002OverrideComponent css={{ color: b.count % 2 ? 'red' : 'blue' }}>
+									{b.count}
 								</Stitches002OverrideComponent>,
-								sandRoot
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
 					'Stitches v0.0.3': {
+						deferred: true,
 						test(b) {
 							return render(
-								<Stitches003OverrideComponent css={{ color: b.iteration % 2 ? 'red' : 'blue' }}>
-									{b.iteration}
+								<Stitches003OverrideComponent css={{ color: b.count % 2 ? 'red' : 'blue' }}>
+									{b.count}
 								</Stitches003OverrideComponent>,
-								sandRoot
+								sandRoot,
+								b.resolve
 							)
 						},
 					},
@@ -272,29 +302,29 @@ export default function CssInReactPage() {
 				benchmarks={{
 					'Emotion v10.0.27': {
 						test(b) {
-							return ReactDOMServer.renderToString(<EmotionBaseComponent>{b.iteration}</EmotionBaseComponent>)
+							return ReactDOMServer.renderToString(<EmotionBaseComponent>{b.count}</EmotionBaseComponent>)
 						},
 					},
 					'Styled v5.2.0': {
 						test(b) {
-							return ReactDOMServer.renderToString(<StyledBaseComponent>{b.iteration}</StyledBaseComponent>)
+							return ReactDOMServer.renderToString(<StyledBaseComponent>{b.count}</StyledBaseComponent>)
 						},
 					},
 					'Stitches Original': {
 						test(b) {
 							return ReactDOMServer.renderToString(
-								<StitchesOriginalBaseComponent>{b.iteration}</StitchesOriginalBaseComponent>
+								<StitchesOriginalBaseComponent>{b.count}</StitchesOriginalBaseComponent>
 							)
 						},
 					},
 					'Stitches v0.0.2': {
 						test(b) {
-							return ReactDOMServer.renderToString(<Stitches002BaseComponent>{b.iteration}</Stitches002BaseComponent>)
+							return ReactDOMServer.renderToString(<Stitches002BaseComponent>{b.count}</Stitches002BaseComponent>)
 						},
 					},
 					'Stitches v0.0.3': {
 						test(b) {
-							return ReactDOMServer.renderToString(<Stitches003BaseComponent>{b.iteration}</Stitches003BaseComponent>)
+							return ReactDOMServer.renderToString(<Stitches003BaseComponent>{b.count}</Stitches003BaseComponent>)
 						},
 					},
 				}}
@@ -306,22 +336,22 @@ export default function CssInReactPage() {
 					'Emotion v10.0.27': {
 						test(b) {
 							return ReactDOMServer.renderToString(
-								<EmotionDynamicComponent disabled={b.iteration % 2}>{b.iteration}</EmotionDynamicComponent>
+								<EmotionDynamicComponent disabled={b.count % 2}>{b.count}</EmotionDynamicComponent>
 							)
 						},
 					},
 					'Styled v5.2.0': {
 						test(b) {
 							return ReactDOMServer.renderToString(
-								<StyledDynamicComponent disabled={b.iteration % 2}>{b.iteration}</StyledDynamicComponent>
+								<StyledDynamicComponent disabled={b.count % 2}>{b.count}</StyledDynamicComponent>
 							)
 						},
 					},
 					'Stitches Original': {
 						test(b) {
 							return ReactDOMServer.renderToString(
-								<StitchesOriginalDynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
-									{b.iteration}
+								<StitchesOriginalDynamicComponent {...(b.count % 2 ? { variant: 'muted' } : {})}>
+									{b.count}
 								</StitchesOriginalDynamicComponent>
 							)
 						},
@@ -329,17 +359,17 @@ export default function CssInReactPage() {
 					'Stitches v0.0.2': {
 						test(b) {
 							return ReactDOMServer.renderToString(
-								<Stitches003DynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
-									{b.iteration}
-								</Stitches003DynamicComponent>
+								<Stitches002DynamicComponent {...(b.count % 2 ? { variant: 'muted' } : {})}>
+									{b.count}
+								</Stitches002DynamicComponent>
 							)
 						},
 					},
 					'Stitches v0.0.3': {
 						test(b) {
 							return ReactDOMServer.renderToString(
-								<Stitches003DynamicComponent {...(b.iteration % 2 ? { variant: 'muted' } : {})}>
-									{b.iteration}
+								<Stitches003DynamicComponent {...(b.count % 2 ? { variant: 'muted' } : {})}>
+									{b.count}
 								</Stitches003DynamicComponent>
 							)
 						},

@@ -1,13 +1,12 @@
 /* globals globalThis:readonly */
 
-const addTag = (contents = '') => '<' + contents + '>'
 const iframe = document.createElement('iframe')
 iframe.sandbox.add('allow-same-origin')
 iframe.sandbox.add('allow-scripts')
 iframe.srcdoc = [
-	addTag(`!doctype html`),
-	addTag(`meta charset="utf-8" /`),
-	addTag(`meta name="viewport" content="width=device-width" /`),
+	[`<`, `!doctype html`, `>`].join(''),
+	[`<`, `meta charset="utf-8" /`, `>`].join(''),
+	[`<`, `meta name="viewport" content="width=device-width" /`, `>`].join(''),
 ].join('')
 
 document.body.appendChild(iframe)

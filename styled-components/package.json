@@ -10,16 +10,16 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@emotion/core": "^10.0.35",
-    "@emotion/styled": "^10.0.27",
-    "@loadable/component": "5.14.0",
+    "@emotion/core": "10.0.35",
+    "@emotion/styled": "10.0.27",
+    "@loadable/component": "5.14.1",
     "@stitches/react": "0.0.2",
     "@stitches/react-canary": "file:bundledDependencies/react-0.0.3-canary.4.tar.gz",
     "@stitches/styled": "7.2.0",
-    "react": "17.0.0",
-    "react-dom": "17.0.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-router-dom": "5.2.0",
-    "react-scripts": "3.4.4",
+    "react-scripts": "4.0.0",
     "styled-components": "5.2.0"
   },
   "devDependencies": {
@@ -35,5 +35,20 @@
     "last 1 chrome version",
     "last 1 firefox version",
     "last 1 safari version"
-  ]
+  ],
+  "eslintConfig": {
+    "globals": {
+      "_": "readonly",
+      "Benchmark": "readonly",
+      "globalThis": "readonly",
+      "sand": "readonly"
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+          "jsx": true
+      },
+      "ecmaVersion": 11,
+      "sourceType": "module"
+    }
+  }
 }
